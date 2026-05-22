@@ -1,9 +1,12 @@
 import 'dart:convert';
 import 'package:frontend/core/constants/constants.dart';
+import 'package:frontend/core/services/sp_service.dart';
 import 'package:frontend/models/user_models.dart';
 import 'package:http/http.dart' as http;
 
 class AuthRemoteRepository {
+  final spService = SpService();
+
   Future<UserModels> signUp({
     required String name,
     required String email,
@@ -45,6 +48,28 @@ class AuthRemoteRepository {
       }
     } catch (e) {
       throw e.toString();
+    }
+  }
+
+  Future<UserModels?> getUserData() async {
+    try {
+      final token = await spService.getToken();
+      if (token == null) {
+        return null;
+      }
+
+      final res = await http.post(
+        Uri.parse('${Constants.backendUri}/auth/tokenIsValid'),
+        headers: {'Content-Type': 'application/json', 'x-auth-token': token},
+      );
+
+      if (res.statusCode != 200) {
+        return null;
+      }
+
+      return UserModels.fromJson(res.body);
+    } catch (e) {
+      throw (e).toString();
     }
   }
 }
