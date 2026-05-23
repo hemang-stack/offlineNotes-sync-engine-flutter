@@ -1,8 +1,8 @@
-# 🚀 Offline Notes Sync Engine
+# 🚀 Offline Task Sync Engine
 
-An offline-first notes application built using Flutter with a scalable backend powered by Node.js, Express, TypeScript, PostgreSQL, and Docker.
+An offline-first task management application built using Flutter with a scalable backend powered by Node.js, Express, TypeScript, PostgreSQL, and Docker.
 
-The app allows users to create and manage notes offline while automatically syncing data to the cloud when internet connectivity is restored.
+The app allows users to create, update, and manage tasks offline while automatically syncing data to the cloud when internet connectivity is restored.
 
 ---
 
@@ -28,12 +28,14 @@ The app allows users to create and manage notes offline while automatically sync
 
 # 📌 Features
 
-- 📴 Offline note creation
+- 📴 Offline task creation and management
+- ✅ Task completion tracking
 - 🔄 Automatic sync engine
 - ⚡ Bloc state management
 - 🌐 REST API integration
 - 🐳 Dockerized backend
 - 📱 Responsive Flutter UI
+- 📂 Local data persistence
 
 ---
 
@@ -42,7 +44,7 @@ The app allows users to create and manage notes offline while automatically sync
 ```text
 Flutter App
      ↓
-Local Storage
+Local Database (SQLite)
      ↓
 Sync Engine
      ↓
@@ -53,10 +55,24 @@ PostgreSQL Database
 
 ---
 
+# 🎯 Planned Features
+
+- ➕ Create Tasks
+- ✏️ Edit Tasks
+- 🗑️ Delete Tasks
+- ✅ Mark Tasks as Completed
+- 📅 Due Dates & Priorities
+- 🏷️ Task Categories
+- 🔄 Background Synchronization
+- 👤 User Authentication
+- ☁️ Multi-device Sync
+
+---
+
 # 🚀 Getting Started
 
 ```bash
-git clone https://github.com/hemang-stack/offlineNotes-sync-engine-flutter.git
+git clone https://github.com/hemang-stack/offline-task-sync-engine-flutter.git
 ```
 
 ---
