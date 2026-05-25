@@ -5,6 +5,7 @@ import 'package:frontend/features/auth/repository/auth_local_repository.dart';
 import 'package:frontend/models/user_models.dart';
 import 'package:http/http.dart' as http;
 
+
 class AuthRemoteRepository {
   final spService = SpService();
   final authLocalRepository = AuthLocalRepository();

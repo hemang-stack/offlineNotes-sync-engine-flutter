@@ -1,6 +1,6 @@
-import 'package:frontend/models/user_models.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:frontend/models/user_models.dart';
 
 class AuthLocalRepository{
   final tableName = "users";

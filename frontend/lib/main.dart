@@ -7,12 +7,10 @@ import 'package:frontend/features/home/pages/home_page.dart';
 void main() {
   runApp(
     MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => AuthCubit())
-        ],
-        child: const MyApp(),
-        )
-    );
+      providers: [BlocProvider(create: (_) => AuthCubit())],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -64,6 +62,7 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
       ),
+      debugShowCheckedModeBanner: false,
       home: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
           if (state is AuthLoggedIn) {
