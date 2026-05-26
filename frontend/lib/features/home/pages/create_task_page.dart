@@ -96,18 +96,18 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
             fontWeight: FontWeight.w700,
           ),
         ),
-        actions: [
-          TextButton(
-            onPressed: () {},
-            child: const Text(
-              "Save",
-              style: TextStyle(
-                  color: Color(0xFFFF7A45),
-                  fontWeight: FontWeight.w700,
-                  fontSize: 14),
-            ),
-          ),
-        ],
+        // actions: [
+        //   TextButton(
+        //     onPressed: () {},
+        //     child: const Text(
+        //       "Save",
+        //       style: TextStyle(
+        //           color: Color(0xFFFF7A45),
+        //           fontWeight: FontWeight.w700,
+        //           fontSize: 14),
+        //     ),
+        //   ),
+        // ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(
@@ -197,6 +197,10 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                   focusedBorder: InputBorder.none,
                   errorBorder: InputBorder.none,
                   disabledBorder: InputBorder.none,
+                  contentPadding: EdgeInsets.only(
+                    left: 8,
+                    top: 3,
+                  ),
                 ),
               ),
             ),
