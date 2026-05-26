@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'date_item.dart';
 
-class DateTimeline extends StatelessWidget {
+class DateTimeline extends StatefulWidget {
   final DateTime selectedDate;
   final ValueChanged<DateTime> onDateSelected;
   final int daysInMonth;
@@ -14,27 +14,76 @@ class DateTimeline extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<DateTimeline> createState() => _DateTimelineState();
+}
+
+class _DateTimelineState extends State<DateTimeline> {
+  final ScrollController _scrollController = ScrollController();
+
+  static const double itemWidth = 80.0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollToSelectedDate();
+    });
+  }
+
+  @override
+  void didUpdateWidget(covariant DateTimeline oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.selectedDate.day != widget.selectedDate.day) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _scrollToSelectedDate();
+      });
+    }
+  }
+
+  void _scrollToSelectedDate() {
+    if (!_scrollController.hasClients) return;
+
+    final index = widget.selectedDate.day - 1;
+
+    final offset = (index * itemWidth) - 76.5;
+
+    _scrollController.animateTo(
+      offset.clamp(
+        0,
+        _scrollController.position.maxScrollExtent,
+      ),
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeOut,
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 85,
       child: ListView.builder(
+        controller: _scrollController,
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 8),
-        itemCount: daysInMonth,
+        itemCount: widget.daysInMonth,
         itemBuilder: (context, index) {
           final day = index + 1;
+
           final date = DateTime(
-            selectedDate.year,
-            selectedDate.month,
+            widget.selectedDate.year,
+            widget.selectedDate.month,
             day,
           );
-          final isSelected = day == selectedDate.day;
+
+          final isSelected = day == widget.selectedDate.day;
 
           return DateItem(
             day: day,
             dayOfWeek: _getDayOfWeek(date),
             isSelected: isSelected,
-            onTap: () => onDateSelected(date),
+            onTap: () => widget.onDateSelected(date),
           );
         },
       ),
@@ -43,7 +92,6 @@ class DateTimeline extends StatelessWidget {
 
   String _getDayOfWeek(DateTime date) {
     const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-    final weekday = date.weekday;
-    return days[weekday - 1];
+    return days[date.weekday - 1];
   }
 }

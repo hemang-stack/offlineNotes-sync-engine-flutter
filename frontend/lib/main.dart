@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'SyncNotes',
       theme: ThemeData(
-        fontFamily: 'Poppins',
+        fontFamily: 'Inter',
         inputDecorationTheme: InputDecorationTheme(
           contentPadding: const EdgeInsets.all(20),
           enabledBorder: OutlineInputBorder(

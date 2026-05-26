@@ -24,7 +24,7 @@ class TimelineIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsetsGeometry.only(left: 15),
+      padding: const EdgeInsetsGeometry.only(left: 20),
       child: Column(
         children: [
           if (!isFirst)

@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
       ),
       TaskModel(
         id: '4',
-        title: 'App Completion',
+        title: 'App completion before 31st May',
         priority: TaskPriority.medium,
         status: TaskStatus.pending,
         startTime: DateTime(
@@ -198,6 +198,7 @@ class _HomePageState extends State<HomePage> {
               onDateSelected: _onDateSelected,
               daysInMonth: daysInMonth,
             ),
+            const SizedBox(height: 30),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
@@ -316,6 +317,7 @@ class _HomePageState extends State<HomePage> {
         border: Border(top: BorderSide(color: AppColors.border, width: 1)),
       ),
       child: BottomNavigationBar(
+        selectedItemColor: const Color(0xFFFF7A45),
         backgroundColor: AppColors.surface,
         elevation: 0,
         type: BottomNavigationBarType.fixed,

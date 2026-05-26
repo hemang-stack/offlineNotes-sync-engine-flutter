@@ -83,6 +83,7 @@ class TaskCard extends StatelessWidget {
               height: 24,
               child: Checkbox(
                 value: task.isCompleted,
+                activeColor: const Color(0xFFFF7A45),
                 onChanged: onCheckedChanged,
                 side: const BorderSide(
                   color: AppColors.border,
@@ -97,7 +98,9 @@ class TaskCard extends StatelessWidget {
                 children: [
                   Text(
                     task.title,
-                    style: AppTheme.titleMedium.copyWith(
+                    style:
+                    AppTheme.titleMedium.copyWith(
+                      fontSize: 16,
                       color: task.isCompleted
                           ? AppColors.textSecondary
                           : AppColors.textPrimary,
