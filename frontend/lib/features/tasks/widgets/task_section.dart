@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/core/theme/app_colors.dart';
 import 'package:frontend/core/theme/app_theme.dart';
-import 'package:frontend/features/tasks/models/task_model.dart';
+import 'package:frontend/features/tasks/models/task_UI_model.dart';
 import 'task_card.dart';
 import 'timeline_indicator.dart';
 
 class TaskSection extends StatelessWidget {
   final String title;
-  final List<TaskModel> tasks;
+  final List<TaskUIModel> tasks;
   final bool showTimeline;
-  final ValueChanged<TaskModel>? onTaskChecked;
-  final ValueChanged<TaskModel>? onTaskTap;
+  final ValueChanged<TaskUIModel>? onTaskChecked;
+  final ValueChanged<TaskUIModel>? onTaskTap;
 
   const TaskSection({
     Key? key,
@@ -49,7 +49,6 @@ class TaskSection extends StatelessWidget {
                   (index) => TimelineIndicator(
                     isFirst: index == 0,
                     isLast: index == tasks.length - 1,
-                    isActive: tasks[index].status == TaskStatus.inProgress,
                     isCompleted: tasks[index].isCompleted,
                   ),
                 ),

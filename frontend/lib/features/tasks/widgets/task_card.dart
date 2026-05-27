@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/core/theme/app_colors.dart';
 import 'package:frontend/core/theme/app_theme.dart';
-import 'package:frontend/features/tasks/models/task_model.dart';
+import 'package:frontend/features/tasks/models/task_UI_model.dart';
 
 class TaskCard extends StatelessWidget {
-  final TaskModel task;
+  final TaskUIModel task;
   final ValueChanged<bool?>? onCheckedChanged;
   final VoidCallback? onTap;
   final bool showTimeline;

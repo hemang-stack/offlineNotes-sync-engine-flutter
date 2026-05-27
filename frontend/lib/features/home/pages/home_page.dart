@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/core/theme/app_colors.dart';
 import 'package:frontend/core/theme/app_theme.dart';
 import 'package:frontend/features/home/pages/create_task_page.dart';
-import 'package:frontend/features/tasks/models/task_model.dart';
+import 'package:frontend/features/tasks/models/task_UI_model.dart';
 import 'package:frontend/features/tasks/widgets/custom_header.dart';
 import 'package:frontend/features/tasks/widgets/date_timeline.dart';
 import 'package:frontend/features/tasks/widgets/floating_add_button.dart';
@@ -20,7 +20,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late DateTime _selectedDate;
-  late List<TaskModel> _tasks;
+  late List<TaskUIModel> _tasks;
   int _completedTasks = 0;
 
   @override
@@ -32,14 +32,13 @@ class _HomePageState extends State<HomePage> {
 
   void _initializeTasks() {
     _tasks = [
-      TaskModel(
+      TaskUIModel(
         id: '1',
         title: 'Review Design Specs',
         description:
             'Checking the design specs for the client before the meeting',
         priority: TaskPriority.high,
-        status: TaskStatus.pending,
-        Time: DateTime(
+        scheduledAt: DateTime(
           _selectedDate.year,
           _selectedDate.month,
           _selectedDate.day,
@@ -49,13 +48,12 @@ class _HomePageState extends State<HomePage> {
         category: 'Design',
         isCompleted: false,
       ),
-      TaskModel(
+      TaskUIModel(
         id: '2',
         title: 'Product Sync',
         description: 'Checking the designs',
         priority: TaskPriority.medium,
-        status: TaskStatus.pending,
-        Time: DateTime(
+        scheduledAt: DateTime(
           _selectedDate.year,
           _selectedDate.month,
           _selectedDate.day,
@@ -65,13 +63,12 @@ class _HomePageState extends State<HomePage> {
         category: 'Sync',
         isCompleted: false,
       ),
-      TaskModel(
+      TaskUIModel(
         id: '3',
         title: 'Q4 Roadmap Planning',
         description: 'Specs for the client before the meeting',
         priority: TaskPriority.high,
-        status: TaskStatus.pending,
-        Time: DateTime(
+        scheduledAt: DateTime(
           _selectedDate.year,
           _selectedDate.month,
           _selectedDate.day,
@@ -81,12 +78,12 @@ class _HomePageState extends State<HomePage> {
         category: 'Strategy',
         isCompleted: false,
       ),
-      TaskModel(
+      TaskUIModel(
         id: '4',
         title: 'App completion before 31st May',
         priority: TaskPriority.medium,
-        status: TaskStatus.pending,
-        Time: DateTime(
+
+        scheduledAt: DateTime(
           _selectedDate.year,
           _selectedDate.month,
           _selectedDate.day,
@@ -145,7 +142,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void _onTaskChecked(TaskModel task) {
+  void _onTaskChecked(TaskUIModel task) {
     setState(() {
       final index = _tasks.indexWhere((t) => t.id == task.id);
       if (index != -1) {

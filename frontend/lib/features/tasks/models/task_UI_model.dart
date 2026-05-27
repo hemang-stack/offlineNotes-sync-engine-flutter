@@ -7,84 +7,66 @@ enum TaskPriority {
   const TaskPriority(this.label);
 }
 
-enum TaskStatus {
-  pending('Pending'),
-  inProgress('In Progress'),
-  completed('Completed');
-
-  final String label;
-  const TaskStatus(this.label);
-}
-
-class TaskModel {
+class TaskUIModel {
   final String id;
   final String title;
   final String? description;
   final TaskPriority priority;
-  final TaskStatus status;
-  final DateTime Time;
+  final DateTime scheduledAt;
   final String? category;
   final bool isCompleted;
   final DateTime? completedAt;
 
-  const TaskModel({
+  const TaskUIModel({
     required this.id,
     required this.title,
     this.description,
     required this.priority,
-    required this.status,
-    required this.Time,
-
+    required this.scheduledAt,
     this.category,
     this.isCompleted = false,
     this.completedAt,
   });
 
-  TaskModel copyWith({
+  TaskUIModel copyWith({
     String? id,
     String? title,
     String? description,
     TaskPriority? priority,
-    TaskStatus? status,
-    DateTime? startTime,
-    DateTime? endTime,
+    DateTime? scheduledAt,
     String? category,
     bool? isCompleted,
     DateTime? completedAt,
   }) {
-    return TaskModel(
+    return TaskUIModel(
       id: id ?? this.id,
       title: title ?? this.title,
       description: description ?? this.description,
       priority: priority ?? this.priority,
-      status: status ?? this.status,
-      Time: startTime ?? this.Time,
+      scheduledAt: scheduledAt ?? this.scheduledAt,
       category: category ?? this.category,
       isCompleted: isCompleted ?? this.isCompleted,
       completedAt: completedAt ?? this.completedAt,
     );
   }
 
-
   String formatTime(DateTime time) {
     return '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
   }
 
-  String get formattedStartTime => formatTime(Time);
+  String get formattedStartTime => formatTime(scheduledAt);
 
   String get time => '$formattedStartTime';
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is TaskModel &&
+      other is TaskUIModel &&
           runtimeType == other.runtimeType &&
           id == other.id &&
           title == other.title &&
-          priority == other.priority &&
-          status == other.status;
+          priority == other.priority;
 
   @override
-  int get hashCode =>
-      id.hashCode ^ title.hashCode ^ priority.hashCode ^ status.hashCode;
+  int get hashCode => id.hashCode ^ title.hashCode ^ priority.hashCode;
 }
