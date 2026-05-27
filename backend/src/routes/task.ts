@@ -27,4 +27,15 @@ taskRouter.get("/", auth, async(req: AuthRequest, res) => {
     }
 });
 
+taskRouter.delete("/", auth, async(req: AuthRequest, res) => {
+    try {
+        const {taskId}: {taskId: string} = req.body;
+        await db.delete(tasks).where(eq(tasks.id, taskId));
+
+        res.json(true);
+    } catch (e) {
+        res.status(500).json({error : e});
+    }
+});
+
 export default taskRouter;

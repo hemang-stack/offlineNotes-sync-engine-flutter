@@ -7,7 +7,7 @@ const app = express();
 
 app.use(express.json());
 app.use("/auth", authRouter);
-app.use("/tasks", taskRouter)
+app.use("/tasks", taskRouter);
 
 app.get("/", (req, res) =>{
     res.send("Welcome to the app!!!");

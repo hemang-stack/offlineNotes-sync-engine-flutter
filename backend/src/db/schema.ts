@@ -23,7 +23,7 @@ export const tasks = pgTable("tasks", {
     title: text("title").notNull(),
     description: text("description"),
     uid: uuid("uid")
-        .notNull()
+        .notNull() 
         .references(() => users.id,
             { onDelete: "cascade" }
         ),
