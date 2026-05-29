@@ -1,57 +1,44 @@
 import 'package:flutter/material.dart';
 
 class CreateTaskHeader extends StatelessWidget {
-  const CreateTaskHeader({super.key});
+  final bool isEdit;
+
+  const CreateTaskHeader({
+    super.key,
+    this.isEdit = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          const EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: 24,
       ),
-
       child: Row(
-        mainAxisAlignment:
-            MainAxisAlignment.spaceBetween,
-
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-
           Text(
-            "CURATING: NEW_ENTRY",
-
+            isEdit ? "CURATING: EDIT_ENTRY" : "CURATING: NEW_ENTRY",
             style: TextStyle(
-              color:
-                  Colors.white.withOpacity(.5),
-
+              color: Colors.white.withOpacity(.5),
               fontSize: 10,
-
               letterSpacing: 3,
             ),
           ),
-
           GestureDetector(
             onTap: () {
               Navigator.pop(context);
             },
-
             child: Container(
               width: 34,
               height: 34,
-
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-
-                color:
-                    Colors.white.withOpacity(
-                  .04,
-                ),
-
+                color: Colors.white.withOpacity(.04),
                 border: Border.all(
                   color: Colors.white10,
                 ),
               ),
-
               child: const Icon(
                 Icons.close,
                 color: Colors.white70,

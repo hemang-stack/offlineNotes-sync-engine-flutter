@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
-
 import '../../../../core/theme/app_colors.dart';
 
 class TaskTitleInput extends StatelessWidget {
-  const TaskTitleInput({super.key});
+  final TextEditingController titleController;
+
+  const TaskTitleInput({
+    super.key,
+    required this.titleController,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: titleController,
+
       maxLines: 4,
 
       cursorColor: AppColors.primary,
@@ -22,12 +28,10 @@ class TaskTitleInput extends StatelessWidget {
 
       decoration: InputDecoration(
         hintText: "what's the move?",
-
         hintStyle: TextStyle(
           color:
               Colors.white.withOpacity(.12),
         ),
-
         border: InputBorder.none,
       ),
     );

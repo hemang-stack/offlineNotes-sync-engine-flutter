@@ -1,286 +1,270 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/features/tasks/models/task_UI_model.dart';
+import 'package:frontend/features/tasks/pages/create_task_page.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 
 class TaskDetailsPage extends StatelessWidget {
-  TaskDetailsPage({super.key});
+  final TaskUIModel task;
+
+  const TaskDetailsPage({
+    super.key,
+    required this.task,
+  });
+
+  String formatDate(DateTime date) {
+    return "${date.day}/${date.month}/${date.year}";
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      backgroundColor:
-          AppColors.background,
+      backgroundColor: AppColors.background,
 
       body: SafeArea(
-        child: ListView(
-          padding:
-              const EdgeInsets.symmetric(
-            horizontal:
-                AppSpacing.lg,
-            vertical: 20,
-          ),
-
+        child: Stack(
           children: [
+            ListView(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.lg,
+                vertical: 20,
+              ),
 
-            /// TOP BAR
-            Row(
               children: [
+                /// HEADER
+                Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () => Navigator.pop(context),
 
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(
-                      context,
-                    );
-                  },
+                      child: const Icon(
+                        Icons.arrow_back_ios_new,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ),
 
-                  child: const Icon(
-                    Icons.arrow_back_ios,
+                    const SizedBox(width: 20),
+
+                    const Text(
+                      "curator",
+
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 26,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+
+                    const Spacer(),
+
+                    Container(
+                      width: 44,
+                      height: 44,
+
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Color(0xFF1A1A1A),
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 40),
+
+                /// TITLE
+                Text(
+                  task.title,
+
+                  style: const TextStyle(
                     color: Colors.white,
+                    fontSize: 38,
+                    fontWeight: FontWeight.w700,
+                    height: 1.05,
                   ),
                 ),
 
-                const SizedBox(width: 20),
+                const SizedBox(height: 12),
 
-                const Text(
-                  "curator",
+                /// PRIORITY LABEL
+                Text(
+                  task.priority.label.toUpperCase(),
+
+                  style: const TextStyle(
+                    color: AppColors.primary,
+                    fontSize: 11,
+                    letterSpacing: 4,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+
+                const SizedBox(height: 36),
+
+                /// HERO IMAGE
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(30),
+
+                  child: Image.network(
+                    "https://images.unsplash.com/photo-1511818966892-d7d671e672a2",
+
+                    height: 300,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+
+                const SizedBox(height: 40),
+
+                /// PRIORITY
+                _card(
+                  title: "priority",
+                  value: task.priority.label,
+                ),
+
+                const SizedBox(height: 20),
+
+                /// CATEGORY
+                _card(
+                  title: "category",
+                  value: task.category ?? "uncategorized",
+                ),
+
+                const SizedBox(height: 20),
+
+                /// DUE DATE
+                _card(
+                  title: "due date",
+                  value: formatDate(
+                    task.scheduledAt,
+                  ),
+                ),
+
+                const SizedBox(height: 36),
+
+                /// DESCRIPTION LABEL
+                Text(
+                  "DESCRIPTION",
 
                   style: TextStyle(
-                    color: Colors.white,
-
-                    fontSize: 26,
-
-                    fontWeight:
-                        FontWeight.w700,
+                    color: Colors.white.withOpacity(.4),
+                    letterSpacing: 4,
+                    fontSize: 10,
                   ),
                 ),
 
-                const Spacer(),
+                const SizedBox(height: 20),
 
-                Container(
-                  width: 44,
-                  height: 44,
+                /// DESCRIPTION
+                Text(
+                  task.description ??
+                      "No description available.",
 
-                  decoration:
-                      const BoxDecoration(
-                    shape: BoxShape.circle,
-
-                    color:
-                        Color(0xFF1A1A1A),
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(.8),
+                    height: 1.8,
+                    fontSize: 18,
                   ),
                 ),
+
+                const SizedBox(height: 220),
               ],
             ),
 
-            const SizedBox(height: 40),
+            /// EDIT BUTTON
+            Positioned(
+              right: 24,
+              bottom: 120,
 
-            /// IMAGE
-            ClipRRect(
-              borderRadius:
-                  BorderRadius.circular(
-                30,
-              ),
+              child: Container(
+                width: 68,
+                height: 68,
 
-              child: Image.network(
-                "https://images.unsplash.com/photo-1511818966892-d7d671e672a2",
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white.withOpacity(.08),
+                  border: Border.all(
+                    color: Colors.white10,
+                  ),
+                ),
 
-                height: 300,
-
-                fit: BoxFit.cover,
-
-                errorBuilder:
-                    (
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.push(
                       context,
-                      error,
-                      stackTrace,
-                    ) {
-
-                  return Container(
-                    height: 300,
-
-                    color:
-                        const Color(
-                      0xFF1A1A1A,
-                    ),
-                  );
-                },
-              ),
-            ),
-
-            const SizedBox(height: 40),
-
-            /// PRIORITY
-            _card(
-              title: "priority",
-              value: "critical path",
-            ),
-
-            const SizedBox(height: 20),
-
-            /// CATEGORY
-            _card(
-              title: "category",
-              value:
-                  "technical design",
-            ),
-
-            const SizedBox(height: 20),
-
-            /// DATE
-            Container(
-              padding:
-                  const EdgeInsets.all(
-                28,
-              ),
-
-              decoration: BoxDecoration(
-                color:
-                    const Color(
-                  0xFF111111,
-                ),
-
-                borderRadius:
-                    BorderRadius.circular(
-                  30,
-                ),
-
-                border: Border.all(
-                  color:
-                      Colors.white10,
-                ),
-              ),
-
-              child: Row(
-                children: [
-
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment:
-                          CrossAxisAlignment
-                              .start,
-
-                      children: [
-
-                        Text(
-                          "DUE DATE",
-
-                          style: TextStyle(
-                            color:
-                                Colors.white
-                                    .withOpacity(
-                              .4,
-                            ),
-
-                            letterSpacing:
-                                4,
-
-                            fontSize:
-                                10,
-                          ),
+                      MaterialPageRoute(
+                        builder: (_) => CreateTaskPage(
+                          isEdit: true,
+                          task: task,
                         ),
+                      ),
+                    );
+                  },
 
-                        const SizedBox(
-                            height: 22),
-
-                        const Text(
-                          "24 oct 2024",
-
-                          style:
-                              TextStyle(
-                            color:
-                                Colors
-                                    .white,
-
-                            fontSize:
-                                24,
-
-                            fontWeight:
-                                FontWeight
-                                    .w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  _circleButton(
-                    Icons.share_outlined,
-                  ),
-
-                  const SizedBox(
-                      width: 16),
-
-                  _circleButton(
+                  icon: const Icon(
                     Icons.edit_outlined,
+                    color: Colors.white,
                   ),
-                ],
+                ),
               ),
             ),
 
-            const SizedBox(height: 36),
+            /// MARK AS DONE
+            Positioned(
+              left: 24,
+              right: 24,
+              bottom: 24,
 
-            /// BUTTON
-            SizedBox(
-              height: 70,
+              child: SizedBox(
+                height: 72,
 
-              child: ElevatedButton(
-                style:
-                    ElevatedButton.styleFrom(
-                  backgroundColor:
-                      AppColors.primary,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor:
+                        AppColors.primary,
 
-                  shape:
-                      RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius
-                            .circular(
-                      999,
+                    shape:
+                        RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(
+                        999,
+                      ),
                     ),
                   ),
-                ),
 
-                onPressed: () {
+                  onPressed: () {
+                    Navigator.pop(
+                      context,
+                      true,
+                    );
+                  },
 
-                  Navigator.pop(
-                    context,
-                    true,
-                  );
-                },
+                  child: const Row(
+                    mainAxisAlignment:
+                        MainAxisAlignment.center,
 
-                child: const Text(
-                  "mark as done",
+                    children: [
+                      Text(
+                        "mark as done",
 
-                  style: TextStyle(
-                    color: Colors.black,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight:
+                              FontWeight.w700,
+                          fontSize: 18,
+                        ),
+                      ),
 
-                    fontSize: 20,
+                      SizedBox(width: 12),
 
-                    fontWeight:
-                        FontWeight.w700,
+                      Icon(
+                        Icons.check_circle,
+                        color: Colors.black,
+                      ),
+                    ],
                   ),
                 ),
               ),
             ),
-
-            const SizedBox(height: 40),
-
-            /// DESCRIPTION
-            Text(
-              "Revisit the spatial hierarchy and modernize the interaction design against the revised sustainability guidelines.",
-
-              style: TextStyle(
-                color:
-                    Colors.white
-                        .withOpacity(.8),
-
-                height: 1.8,
-
-                fontSize: 18,
-              ),
-            ),
-
-            const SizedBox(height: 120),
           ],
         ),
       ),
@@ -291,19 +275,14 @@ class TaskDetailsPage extends StatelessWidget {
     required String title,
     required String value,
   }) {
-
     return Container(
-      padding:
-          const EdgeInsets.all(28),
+      padding: const EdgeInsets.all(28),
 
       decoration: BoxDecoration(
-        color:
-            const Color(0xFF111111),
+        color: const Color(0xFF111111),
 
         borderRadius:
-            BorderRadius.circular(
-          30,
-        ),
+            BorderRadius.circular(30),
 
         border: Border.all(
           color: Colors.white10,
@@ -315,17 +294,14 @@ class TaskDetailsPage extends StatelessWidget {
             CrossAxisAlignment.start,
 
         children: [
-
           Text(
             title.toUpperCase(),
 
             style: TextStyle(
               color:
-                  Colors.white
-                      .withOpacity(.4),
+                  Colors.white.withOpacity(.4),
 
               letterSpacing: 4,
-
               fontSize: 10,
             ),
           ),
@@ -337,38 +313,11 @@ class TaskDetailsPage extends StatelessWidget {
 
             style: const TextStyle(
               color: Colors.white,
-
               fontSize: 24,
-
-              fontWeight:
-                  FontWeight.w600,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _circleButton(
-    IconData icon,
-  ) {
-
-    return Container(
-      width: 72,
-      height: 72,
-
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-
-        color:
-            Colors.white.withOpacity(
-          .08,
-        ),
-      ),
-
-      child: Icon(
-        icon,
-        color: Colors.white,
       ),
     );
   }

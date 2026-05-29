@@ -1,9 +1,10 @@
 enum TaskPriority {
-  high('High'),
-  medium('Medium'),
-  low('Low');
+  chill('Chill'),
+  focused('Focused'),
+  urgent('Urgent');
 
   final String label;
+
   const TaskPriority(this.label);
 }
 

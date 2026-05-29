@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/features/tasks/models/task_UI_model.dart';
+import 'package:frontend/features/tasks/pages/create_task_page.dart';
 import 'package:frontend/features/tasks/pages/task_details_page.dart';
-import 'package:frontend/features/tasks/widgets/shared/priority_chip.dart';
 
 import '../../tasks/widgets/shared/task_checkbox.dart';
 import '../../../core/common/widgets/glass_container.dart';
@@ -11,13 +12,14 @@ class TaskCard extends StatefulWidget {
   final String title;
   final String subtitle;
   final bool completed;
+  final TaskUIModel task;
 
-  const TaskCard({
-    super.key,
-    required this.title,
-    required this.subtitle,
-    this.completed = false,
-  });
+  const TaskCard(
+      {super.key,
+      required this.title,
+      required this.subtitle,
+      this.completed = false,
+      required this.task});
 
   @override
   State<TaskCard> createState() => _TaskCardState();
@@ -42,13 +44,21 @@ class _TaskCardState extends State<TaskCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
+      onTap: () async {
+        final result = await Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => TaskDetailsPage(),
+            builder: (_) => TaskDetailsPage(
+              task: widget.task,
+            ),
           ),
         );
+
+        if (result == true) {
+          setState(() {
+            completed = true;
+          });
+        }
       },
       child: GlassContainer(
         borderRadius: AppRadius.lg,
